@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Admin Panel</div>
+    <a href="/admin">Logout</a>
+</header>
+
+<section class="hero">
+
+<h1>Admin Dashboard</h1>
+
+<div class="card">
+    <h3>🎁 Generate Reward Codes</h3>
+
+    <input id="reward" placeholder="Reward name">
+    <input id="amount" placeholder="Amount (e.g. 10)">
+
+    <button onclick="generate()">Generate</button>
+</div>
+
+<div class="card">
+    <h3>📦 Claims</h3>
+    <button onclick="loadClaims()">View Claims</button>
+</div>
+
+<pre id="output"></pre>
+
+</section>
+
+<script>
+
+async function generate() {
+
+    const reward = document.getElementById("reward").value;
+    const amount = document.getElementById("amount").value;
+
+    const res = await fetch("/api/admin/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reward, amount })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("output").textContent =
+        JSON.stringify(data.codes, null, 2);
+}
+
+async function loadClaims() {
+
+    const res = await fetch("/api/admin/claims");
+    const data = await res.json();
+
+    document.getElementById("output").textContent =
+        JSON.stringify(data, null, 2);
+}
+
+</script>
+
+</body>
+</html>
