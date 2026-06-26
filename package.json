@@ -1,0 +1,16 @@
+{
+  "name": "mcfa-rewards",
+  "version": "1.0.0",
+  "description": "Reward system website with login, admin panel, and code redemption",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "bcrypt": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
