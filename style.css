@@ -1,167 +1,203 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
+/* Dashboard Reward Cards */
 
-body{
-    background:linear-gradient(135deg,#0f172a,#1e293b,#312e81);
-    color:#fff;
-    min-height:100vh;
-}
-
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px;
-}
-
-.logo{
-    font-size:28px;
-    font-weight:bold;
-}
-
-.admin-btn{
-    text-decoration:none;
-    background:#ff4d4d;
-    color:#fff;
-    padding:10px 18px;
-    border-radius:10px;
-    transition:.3s;
-}
-
-.admin-btn:hover{
-    background:#ff2d2d;
-}
-
-.hero{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:40px 20px;
-    text-align:center;
-}
-
-.hero h1{
-    font-size:42px;
-    margin-bottom:15px;
-}
-
-.hero p{
-    max-width:700px;
-    color:#d1d5db;
-    margin-bottom:30px;
-}
-
-.info-box{
+.rewards{
     width:100%;
-    max-width:700px;
+    max-width:1100px;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+    margin-top:30px;
+}
+
+
+.card{
+
     background:rgba(255,255,255,.08);
     backdrop-filter:blur(10px);
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:30px;
-    line-height:1.8;
-}
 
-.login-card{
-    width:100%;
-    max-width:400px;
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(10px);
-    padding:30px;
-    border-radius:15px;
-}
+    padding:25px;
 
-.login-card h2{
-    margin-bottom:20px;
-}
+    border-radius:18px;
 
-.login-card input{
-    width:100%;
-    padding:14px;
-    margin-bottom:15px;
-    border:none;
-    border-radius:10px;
-    background:#1f2937;
-    color:white;
-    outline:none;
-}
-
-.login-card button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:10px;
-    background:#5865F2;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
     transition:.3s;
+
 }
 
-.login-card button:hover{
-    transform:scale(1.03);
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 10px 30px rgba(99,102,241,.35);
+
 }
 
-.divider{
-    margin:20px 0;
-    color:#aaa;
-}
 
-.register-btn{
-    display:block;
-    text-decoration:none;
-    background:#22c55e;
-    color:white;
-    padding:14px;
-    border-radius:10px;
-    font-weight:bold;
-}
 
-.register-btn:hover{
-    background:#16a34a;
-}
+.card h3{
 
-.small-text{
-    margin-top:20px;
-    font-size:13px;
-    color:#cbd5e1;
-}
-
-footer{
-    text-align:center;
-    padding:20px;
-    color:#94a3b8;
-    margin-top:40px;
-}
-
-@media(max-width:600px){
-
-.hero h1{
-    font-size:32px;
-}
-
-.logo{
     font-size:22px;
-}
 
-header{
-    flex-direction:column;
-    gap:15px;
-}
+    margin-bottom:10px;
 
 }
-.select-box{
-    width:100%;
-    padding:14px;
+
+
+.card p{
+
+    color:#cbd5e1;
+
     margin-bottom:15px;
+
+}
+
+
+
+
+/* Claim Buttons */
+
+.claim{
+
+    width:100%;
+
+    padding:13px;
+
     border:none;
+
     border-radius:10px;
-    background:#1f2937;
+
+    background:#5865F2;
+
     color:white;
+
+    cursor:pointer;
+
     font-size:16px;
-    outline:none;
+
+}
+
+
+.claim:hover{
+
+    background:#4752c4;
+
+}
+
+
+
+
+
+/* Profile/User Box */
+
+.user-box,
+.profile,
+.box{
+
+    width:100%;
+
+    max-width:700px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(10px);
+
+    padding:20px;
+
+    border-radius:15px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+/* Admin Tables */
+
+table{
+
+    width:100%;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    border-collapse:collapse;
+
+}
+
+
+th,td{
+
+    padding:15px;
+
+    border-bottom:1px solid rgba(255,255,255,.1);
+
+    text-align:left;
+
+}
+
+
+th{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+
+
+
+/* Better Select */
+
+.select-box{
+
+    cursor:pointer;
+
+}
+
+
+select option{
+
+    background:#1f2937;
+
+}
+
+
+
+
+
+/* Smooth animation */
+
+.login-card,
+.card,
+.info-box,
+.user-box{
+
+    animation:fadeIn .5s ease;
+
+}
+
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
 }
