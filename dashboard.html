@@ -1,74 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | MCFA Rewards</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | MCFA Rewards</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+    background:#111827;
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+}
+
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+
+.admin-btn{
+    background:#ef4444;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+
+.hero{
+    padding:40px 20px;
+    text-align:center;
+}
+
+
+.hero h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+
+.hero p{
+    color:#cbd5e1;
+}
+
+
+.rewards{
+
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+    margin-top:40px;
+
+}
+
+
+.card{
+
+    background:#1e293b;
+    padding:25px;
+    border-radius:20px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.4);
+
+    transition:.3s;
+
+}
+
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 15px 35px rgba(99,102,241,.4);
+
+}
+
+
+.card h3{
+
+    font-size:22px;
+
+}
+
+
+.card p{
+
+    color:#94a3b8;
+
+}
+
+
+.register-btn{
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    background:#6366f1;
+
+    color:white;
+
+    padding:12px 25px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+.register-btn:hover{
+
+    background:#818cf8;
+
+}
+
+
+.user-box{
+
+    background:#1e293b;
+
+    padding:15px 25px;
+
+    border-radius:15px;
+
+    margin-bottom:30px;
+
+    display:inline-block;
+
+}
+
+
+footer{
+
+    text-align:center;
+
+    padding:25px;
+
+    color:#94a3b8;
+
+}
+
+
+
+</style>
+
 </head>
+
+
 <body>
 
-<header>
-    <div class="logo">🎁 MCFA Rewards</div>
 
-    <a href="index.html" class="admin-btn">Logout</a>
+<header>
+
+<div class="logo">
+🎁 MCFA Rewards
+</div>
+
+
+<div>
+
+<span id="username"></span>
+
+<a onclick="logout()" class="admin-btn">
+Logout
+</a>
+
+</div>
+
 </header>
+
+
 
 <section class="hero">
 
-    <h1>Welcome!</h1>
 
-    <p>
-        Choose a reward below. Enter a valid reward code to submit your claim.
-    </p>
+<h1>
+Welcome Back 👋
+</h1>
 
-    <div class="rewards">
 
-        <div class="card">
-            <h3>✨ MCFA Permanent</h3>
-            <p>Reward Code Required</p>
-            <a href="claim.html" class="register-btn">Claim Reward</a>
-        </div>
+<div class="user-box">
 
-        <div class="card">
-            <h3>🎮 Minecraft Redeem Code</h3>
-            <p>Reward Code Required</p>
-            <a href="claim.html" class="register-btn">Claim Reward</a>
-        </div>
+Your account:
+<b id="email">
+Loading...
+</b>
 
-        <div class="card">
-            <h3>💳 Roblox $50 Gift Card</h3>
-            <p>Reward Code Required</p>
-            <a href="claim.html" class="register-btn">Claim Reward</a>
-        </div>
+</div>
 
-        <div class="card">
-            <h3>💎 Roblox $100 Gift Card</h3>
-            <p>Reward Code Required</p>
-            <a href="claim.html" class="register-btn">Claim Reward</a>
-        </div>
 
-        <div class="card">
-            <h3>🚀 Nitro Basic Yearly</h3>
-            <p>Reward Code Required</p>
-            <a href="claim.html" class="register-btn">Claim Reward</a>
-        </div>
+<p>
+Choose your reward and submit your valid reward code.
+</p>
 
-        <div class="card">
-            <h3>👑 Nitro Boost Yearly</h3>
-            <p>Reward Code Required</p>
-            <a href="claim.html" class="register-btn">Claim Reward</a>
-        </div>
 
-    </div>
+
+<div class="rewards">
+
+
+<div class="card">
+<h3>✨ MCFA Permanent</h3>
+<p>Requirement: 1 Invite</p>
+<a onclick="claim('MCFA Permanent')" class="register-btn">
+Claim Reward
+</a>
+</div>
+
+
+
+<div class="card">
+<h3>🎮 Minecraft Redeem Code</h3>
+<p>Requirement: 4 Invites</p>
+<a onclick="claim('Minecraft Redeem Code')" class="register-btn">
+Claim Reward
+</a>
+</div>
+
+
+
+<div class="card">
+<h3>💳 Roblox $50 Gift Card</h3>
+<p>Requirement: 2 Invites</p>
+<a onclick="claim('Roblox $50 Gift Card')" class="register-btn">
+Claim Reward
+</a>
+</div>
+
+
+
+<div class="card">
+<h3>💳 Roblox $100 Gift Card</h3>
+<p>Requirement: 4 Invites</p>
+<a onclick="claim('Roblox $100 Gift Card')" class="register-btn">
+Claim Reward
+</a>
+</div>
+
+
+
+<div class="card">
+<h3>💎 Nitro Basic Yearly</h3>
+<p>Requirement: 2 Invites</p>
+<a onclick="claim('Nitro Basic Yearly')" class="register-btn">
+Claim Reward
+</a>
+</div>
+
+
+
+<div class="card">
+<h3>👑 Nitro Boost Yearly</h3>
+<p>Requirement: 4 Invites</p>
+<a onclick="claim('Nitro Boost Yearly')" class="register-btn">
+Claim Reward
+</a>
+</div>
+
+
+
+</div>
+
 
 </section>
 
+
+
 <footer>
-    © 2026 MCFA Rewards • All Rights Reserved
+
+© 2026 MCFA Rewards • All Rights Reserved
+
 </footer>
 
-<script src="script.js"></script>
+
+
+
+<script>
+
+
+let user = JSON.parse(localStorage.getItem("user"));
+
+
+if(!user){
+
+window.location.href="index.html";
+
+}
+
+else{
+
+document.getElementById("email").innerText =
+user.email || "User";
+
+}
+
+
+
+function claim(reward){
+
+localStorage.setItem(
+"selectedReward",
+reward
+);
+
+window.location.href="claim.html";
+
+}
+
+
+
+function logout(){
+
+localStorage.removeItem("user");
+
+window.location.href="index.html";
+
+}
+
+
+
+</script>
+
 
 </body>
 </html>
