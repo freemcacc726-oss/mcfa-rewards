@@ -1,164 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Order Confirmed | MCFA Rewards</title>
-
-<link rel="stylesheet" href="style.css">
-
-<style>
-
-.confirm-card{
-
-    background:#1e293b;
-    padding:35px;
-    border-radius:20px;
-    max-width:500px;
-    margin:auto;
-    text-align:center;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
-
-}
-
-.check{
-    font-size:60px;
-}
-
-.reward-box{
-
-    background:#111827;
-    padding:15px;
-    border-radius:12px;
-    margin:20px 0;
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | MCFA Rewards</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-
 <header>
-
-<div class="logo">
-🎁 MCFA Rewards
-</div>
-
+    <div class="logo">🎁 MCFA Rewards</div>
 </header>
-
-
 
 <section class="hero">
 
+    <div class="login-card">
 
-<div class="confirm-card">
+        <h1 style="font-size:60px;">✅</h1>
 
+        <h2>Order Confirmed!</h2>
 
-<div class="check">
-✅
-</div>
+        <p class="small-text" style="font-size:16px;line-height:1.8;margin-top:15px;">
 
+            Your reward claim has been submitted successfully.<br><br>
 
-<h2>
-Order Confirmed!
-</h2>
+            👀 Have Patience You Will Recieve Your Reward.<br><br>
 
+            ⏳ Your reward will be reviewed and delivered within <b>72 Hours</b>.
 
+        </p>
 
-<p class="small-text" style="font-size:16px;line-height:1.8;margin-top:15px;">
+        <br>
 
+        <a href="dashboard.html" class="register-btn">
+            Return to Dashboard
+        </a>
 
-Your reward claim has been submitted successfully.
-
-<br><br>
-
-
-📧 A confirmation email has been sent to your registered email address.
-
-
-</p>
-
-
-
-<div class="reward-box">
-
-Reward:
-
-<br>
-
-<b id="reward">
-Loading...
-</b>
-
-</div>
-
-
-
-<p class="small-text" style="font-size:16px;line-height:1.8;">
-
-
-⏳ Your reward will be reviewed and delivered within
-
-<b>
-72 Hours
-</b>.
-
-
-<br><br>
-
-
-Please make sure your account details are correct to receive your reward.
-
-
-</p>
-
-
-
-<br>
-
-
-<a href="dashboard.html" class="register-btn">
-
-Return to Dashboard
-
-</a>
-
-
-
-</div>
-
+    </div>
 
 </section>
 
-
-
-
 <footer>
-
-© 2026 MCFA Rewards • All Rights Reserved
-
+    © 2026 MCFA Rewards • All Rights Reserved
 </footer>
 
-
-
-
-<script>
-
-let reward =
-localStorage.getItem("claimedReward");
-
-
-document.getElementById("reward").innerText =
-reward || "Reward";
-
-
-</script>
-
+<script src="script.js"></script>
 
 </body>
-    </html>
+</html>
