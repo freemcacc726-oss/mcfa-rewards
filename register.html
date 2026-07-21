@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Account | MCFA Rewards</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | MCFA Rewards</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -14,154 +14,49 @@
 
 <section class="hero">
 
-<div class="login-card">
+    <div class="login-card">
 
-<h2>Create Account</h2>
+        <h2>Create Account</h2>
 
-<p class="small-text">
-Create your MCFA Rewards account to claim exclusive rewards.
-</p>
+        <p class="small-text">
+            Create your account to start claiming exclusive rewards.
+        </p>
 
-<form id="registerForm">
+        <form action="dashboard.html">
 
-<input
-type="text"
-id="username"
-placeholder="Username"
-required>
+            <input type="text" placeholder="Username" required>
 
-<input
-type="email"
-id="email"
-placeholder="Email Address"
-required>
+            <input type="email" placeholder="Email Address" required>
 
-<input
-type="password"
-id="password"
-placeholder="Password"
-required>
+            <input type="password" placeholder="Password" required>
 
-<input
-type="password"
-id="confirmPassword"
-placeholder="Confirm Password"
-required>
+            <input type="password" placeholder="Confirm Password" required>
 
-<button type="submit">
-Create Account
-</button>
+            <button type="submit">Create Account</button>
 
-</form>
+        </form>
 
-<div id="message"></div>
+        <div class="divider">
+            <span>Already have an account?</span>
+        </div>
 
-<button
-type="button"
-id="resendBtn"
-class="secondary-btn">
-Resend Verification Email
-</button>
+        <a href="index.html" class="register-btn">
+            Login
+        </a>
 
-<div class="divider">
-<span>Already have an account?</span>
-</div>
+        <p class="small-text">
+            📧 After registerin, You can Claim Your Rewards.
+        </p>
 
-<a href="index.html" class="register-btn">
-Login Instead
-</a>
-
-<p class="small-text">
-📧 After registration, a verification email will be sent to your inbox.
-You must verify your email before logging in.
-</p>
-
-</div>
+    </div>
 
 </section>
 
 <footer>
-© 2026 MCFA Rewards • All Rights Reserved
+    © 2026 MCFA Rewards • All Rights Reserved
 </footer>
 
-<script>
-
-const form=document.getElementById("registerForm");
-const message=document.getElementById("message");
-
-form.addEventListener("submit",async(e)=>{
-
-e.preventDefault();
-
-const username=document.getElementById("username").value.trim();
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value;
-const confirm=document.getElementById("confirmPassword").value;
-
-if(password!==confirm){
-
-message.innerHTML="<p style='color:#ff4d4d'>Passwords do not match.</p>";
-return;
-
-}
-
-const res=await fetch("/api/register",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-username,
-email,
-password
-})
-
-});
-
-const data=await res.json();
-
-if(data.success){
-
-message.innerHTML="<p style='color:#00d26a'>✅ Verification email sent. Please check your inbox.</p>";
-
-form.reset();
-
-}else{
-
-message.innerHTML=`<p style="color:#ff4d4d">${data.message}</p>`;
-
-}
-
-});
-
-document.getElementById("resendBtn").addEventListener("click",async()=>{
-
-const email=prompt("Enter your registered email");
-
-if(!email) return;
-
-const res=await fetch("/api/resend-verification",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({email})
-
-});
-
-const data=await res.json();
-
-alert(data.message);
-
-});
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
