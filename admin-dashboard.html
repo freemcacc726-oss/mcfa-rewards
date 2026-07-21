@@ -1,67 +1,507 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | MCFA Rewards</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.admin-container{
+
+padding:30px;
+
+}
+
+
+.stats{
+
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(200px,1fr));
+
+gap:20px;
+
+}
+
+
+.box{
+
+background:#1e293b;
+padding:25px;
+border-radius:20px;
+
+}
+
+
+.box h2{
+
+color:#818cf8;
+
+}
+
+
+table{
+
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+
+background:#1e293b;
+
+}
+
+
+th,td{
+
+padding:15px;
+border-bottom:1px solid #334155;
+text-align:left;
+
+}
+
+
+input{
+
+padding:12px;
+border-radius:10px;
+border:none;
+width:100%;
+margin:15px 0;
+
+}
+
+
+.delete{
+
+background:#ef4444;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+
+</style>
+
 </head>
+
+
+
 <body>
 
+
 <header>
-    <div class="logo">Admin Panel</div>
-    <a href="/admin">Logout</a>
+
+<div class="logo">
+🎁 MCFA Admin Panel
+</div>
+
+
+<a onclick="logout()" class="admin-btn">
+Logout
+</a>
+
+
 </header>
 
-<section class="hero">
 
-<h1>Admin Dashboard</h1>
 
-<div class="card">
-    <h3>🎁 Generate Reward Codes</h3>
 
-    <input id="reward" placeholder="Reward name">
-    <input id="amount" placeholder="Amount (e.g. 10)">
+<div class="admin-container">
 
-    <button onclick="generate()">Generate</button>
+
+
+<h1>
+Dashboard Overview
+</h1>
+
+
+
+<div class="stats">
+
+
+<div class="box">
+
+<h2 id="users">
+0
+</h2>
+
+<p>Total Users</p>
+
 </div>
 
-<div class="card">
-    <h3>📦 Claims</h3>
-    <button onclick="loadClaims()">View Claims</button>
+
+<div class="box">
+
+<h2 id="verified">
+0
+</h2>
+
+<p>Verified Users</p>
+
 </div>
 
-<pre id="output"></pre>
 
-</section>
+<div class="box">
+
+<h2 id="claims">
+0
+</h2>
+
+<p>Total Claims</p>
+
+</div>
+
+
+<div class="box">
+
+<h2 id="rewards">
+0
+</h2>
+
+<p>Rewards Given</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<h2>
+Search Users
+</h2>
+
+
+<input 
+
+id="search"
+
+placeholder="Search email..."
+
+onkeyup="searchUsers()"
+
+>
+
+
+
+
+
+<h2>
+Registered Users
+</h2>
+
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Email</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="userTable">
+
+
+</tbody>
+
+
+</table>
+
+
+
+<br>
+
+
+
+<h2>
+Recent Claims
+</h2>
+
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>User</th>
+
+<th>Reward</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="claimTable">
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+</div>
+
+
+
+
 
 <script>
 
-async function generate() {
 
-    const reward = document.getElementById("reward").value;
-    const amount = document.getElementById("amount").value;
+let users=[];
 
-    const res = await fetch("/api/admin/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ reward, amount })
-    });
 
-    const data = await res.json();
 
-    document.getElementById("output").textContent =
-        JSON.stringify(data.codes, null, 2);
+async function loadDashboard(){
+
+
+try{
+
+
+let response =
+await fetch("/api/admin/dashboard");
+
+
+
+let data =
+await response.json();
+
+
+
+users =
+data.users || [];
+
+
+
+document.getElementById("users")
+.innerText =
+data.totalUsers || 0;
+
+
+document.getElementById("verified")
+.innerText =
+data.verifiedUsers || 0;
+
+
+document.getElementById("claims")
+.innerText =
+data.totalClaims || 0;
+
+
+document.getElementById("rewards")
+.innerText =
+data.rewardsGiven || 0;
+
+
+
+displayUsers(users);
+
+
+
+displayClaims(data.claims || []);
+
+
+
 }
 
-async function loadClaims() {
+catch(error){
 
-    const res = await fetch("/api/admin/claims");
-    const data = await res.json();
+console.log(error);
 
-    document.getElementById("output").textContent =
-        JSON.stringify(data, null, 2);
 }
+
+
+}
+
+
+
+
+function displayUsers(list){
+
+
+let table =
+document.getElementById("userTable");
+
+
+table.innerHTML="";
+
+
+
+list.forEach(user=>{
+
+
+table.innerHTML += `
+
+<tr>
+
+<td>${user.email}</td>
+
+<td>
+${user.verified ? "✅ Verified" : "❌ Unverified"}
+</td>
+
+<td>
+
+<button class="delete"
+onclick="deleteUser('${user._id}')">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+
+});
+
+
+}
+
+
+
+
+function searchUsers(){
+
+
+let value =
+document.getElementById("search")
+.value
+.toLowerCase();
+
+
+
+let filtered =
+users.filter(user=>
+
+user.email
+.toLowerCase()
+.includes(value)
+
+);
+
+
+
+displayUsers(filtered);
+
+
+}
+
+
+
+
+async function deleteUser(id){
+
+
+if(!confirm("Delete this user?"))
+return;
+
+
+
+await fetch("/api/admin/user/"+id,{
+
+method:"DELETE"
+
+});
+
+
+
+loadDashboard();
+
+
+}
+
+
+
+
+function displayClaims(claims){
+
+
+let table =
+document.getElementById("claimTable");
+
+
+table.innerHTML="";
+
+
+
+claims.forEach(claim=>{
+
+
+table.innerHTML += `
+
+<tr>
+
+<td>${claim.email || "User"}</td>
+
+<td>${claim.reward}</td>
+
+<td>${claim.status}</td>
+
+</tr>
+
+`;
+
+
+});
+
+
+}
+
+
+
+
+function logout(){
+
+localStorage.removeItem("admin");
+
+window.location.href="admin-login.html";
+
+
+}
+
+
+
+loadDashboard();
+
 
 </script>
 
+
 </body>
+
 </html>
