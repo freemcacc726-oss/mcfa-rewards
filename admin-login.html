@@ -1,52 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | MCFA Rewards</title>
-    <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login | MCFA Rewards</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
+
 <body>
 
-<header>
-    <div class="logo">🛡️ MCFA Admin</div>
 
-    <a href="index.html" class="admin-btn">Home</a>
+<header>
+
+<div class="logo">
+🎁 MCFA Rewards Admin
+</div>
+
+
 </header>
+
+
+
 
 <section class="hero">
 
-    <div class="login-card">
 
-        <h2>Administrator Login</h2>
+<div class="login-card">
 
-        <p class="small-text">
-            Authorized administrators only.
-        </p>
 
-        <form action="admin-dashboard.html">
+<h2>
+🔐 Admin Login
+</h2>
 
-            <input type="email" placeholder="Admin Email" required>
 
-            <input type="password" placeholder="Admin Password" required>
+<p class="small-text">
+Login to manage MCFA Rewards website.
+</p>
 
-            <button type="submit">Login</button>
 
-        </form>
 
-        <p class="small-text">
-            Unauthorized access is prohibited.
-        </p>
 
-    </div>
+<form id="adminLogin">
+
+
+<input
+
+type="email"
+
+id="email"
+
+placeholder="Admin Email"
+
+required
+
+>
+
+
+
+<input
+
+type="password"
+
+id="password"
+
+placeholder="Password"
+
+required
+
+>
+
+
+
+
+<button type="submit">
+
+Login
+
+</button>
+
+
+
+</form>
+
+
+
+<p id="message" class="small-text"></p>
+
+
+
+</div>
+
 
 </section>
 
+
+
+
 <footer>
-    © 2026 MCFA Rewards • Admin Panel
+
+© 2026 MCFA Rewards • All Rights Reserved
+
 </footer>
 
-<script src="script.js"></script>
+
+
+
+
+<script>
+
+
+document.getElementById("adminLogin")
+.addEventListener("submit", async function(e){
+
+
+e.preventDefault();
+
+
+
+let email =
+document.getElementById("email").value;
+
+
+let password =
+document.getElementById("password").value;
+
+
+
+let message =
+document.getElementById("message");
+
+
+
+message.innerText =
+"Logging in...";
+
+
+
+try{
+
+
+let response = await fetch("/api/admin/login",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+email,
+
+password
+
+})
+
+});
+
+
+
+let data =
+await response.json();
+
+
+
+if(response.ok){
+
+
+localStorage.setItem(
+"admin",
+JSON.stringify(data.admin || email)
+);
+
+
+
+window.location.href =
+"admin-dashboard.html";
+
+
+}
+
+else{
+
+
+message.innerText =
+data.message || "Invalid admin login";
+
+
+}
+
+
+
+}
+
+catch(error){
+
+
+message.innerText =
+"Server error. Try again later.";
+
+
+}
+
+
+
+});
+
+
+
+</script>
+
 
 </body>
+
 </html>
