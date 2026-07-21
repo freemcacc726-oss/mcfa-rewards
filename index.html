@@ -1,170 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MCFA Rewards</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCFA Rewards</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="background"></div>
 
 <header>
+    <div class="logo">🎁 MCFA Rewards</div>
 
-<div class="logo">🎁 MCFA Rewards</div>
-
-<a href="admin-login.html" class="admin-btn">
-Admin Login
-</a>
-
+    <a href="admin-login.html" class="admin-btn">Admin Login</a>
 </header>
 
 <section class="hero">
 
-<h1>Claim Exclusive Rewards</h1>
+    <h1>Claim Exclusive Rewards</h1>
 
-<p>
-Join MCFA Rewards to redeem exclusive digital rewards quickly and securely. Create an account, verify your email, and start redeeming your reward codes.
-</p>
+    <p>
+        Create your account, verify your email, and claim amazing rewards using your reward code.
+    </p>
 
-<div class="info-box">
+    <div class="info-box">
+        🔒 <b>How it works</b><br><br>
 
-🔒 <b>How it Works</b>
+        ✅ Create an account<br>
+        ✅ Verify your email<br>
+        ✅ Login to your account<br>
+        ✅ Choose your reward<br>
+        ✅ Enter your reward code<br>
+        ✅ Receive a confirmation email<br>
+        ✅ Reward delivered within <b>72 Hours</b>
+    </div>
 
-<br><br>
+    <div class="login-card">
 
-✅ Create your MCFA Rewards account<br>
-✅ Verify your email address<br>
-✅ Login securely<br>
-✅ Select your preferred reward<br>
-✅ Enter a valid reward code<br>
-✅ Submit your reward request
+        <h2>Welcome</h2>
 
-</div>
+        <form action="dashboard.html">
 
-<div class="login-card">
+            <input type="email" placeholder="Email Address" required>
 
-<h2>Welcome Back</h2>
+            <input type="password" placeholder="Password" required>
 
-<p class="small-text">
-Sign in to continue to your dashboard.
-</p>
+            <button type="submit">Login</button>
 
-<form id="loginForm">
+        </form>
 
-<input
-type="email"
-id="email"
-placeholder="Email Address"
-required>
+        <div class="divider">
+            <span>OR</span>
+        </div>
 
-<input
-type="password"
-id="password"
-placeholder="Password"
-required>
+        <a href="register.html" class="register-btn">
+            Create Account
+        </a>
 
-<button type="submit">
-Login
-</button>
+        <p class="small-text">
+            By creating an account, you'll receive a verification email before accessing rewards.
+        </p>
 
-</form>
-
-<div id="message"></div>
-
-<p class="small-text">
-<a href="#" id="forgotPassword">
-Forgot Password?
-</a>
-</p>
-
-<div class="divider">
-<span>OR</span>
-</div>
-
-<a href="register.html" class="register-btn">
-Create Account
-</a>
-
-<p class="small-text">
-Every account requires email verification before accessing rewards.
-</p>
-
-</div>
+    </div>
 
 </section>
 
 <footer>
-© 2026 MCFA Rewards • All Rights Reserved
+
+    © 2026 MCFA Rewards • All Rights Reserved
+
 </footer>
 
-<script>
-
-const form=document.getElementById("loginForm");
-const message=document.getElementById("message");
-
-form.addEventListener("submit",async(e)=>{
-
-e.preventDefault();
-
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value;
-
-const res=await fetch("/api/login",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-email,
-password
-})
-});
-
-const data=await res.json();
-
-if(data.success){
-
-window.location.href="dashboard.html";
-
-}else{
-
-message.innerHTML=`<p style="color:#ff4d4d;">${data.message}</p>`;
-
-}
-
-});
-
-document.getElementById("forgotPassword").addEventListener("click",async(e)=>{
-
-e.preventDefault();
-
-const email=prompt("Enter your registered email address");
-
-if(!email) return;
-
-const res=await fetch("/api/forgot-password",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-email
-})
-
-});
-
-const data=await res.json();
-
-alert(data.message);
-
-});
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
